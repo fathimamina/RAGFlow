@@ -2,17 +2,18 @@ from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
-from dotenv import load_dotenv
 import os
+import streamlit as st
+from langchain_groq import ChatGroq
 
-load_dotenv()
 
 def create_rag_chain(vectorstore):
-    """Create the RAG (Retrieval + Generation) chain"""
-    
-    # Updated to a currently supported model
+
+    api_key = st.secrets["GROQ_API_KEY"]
+
     llm = ChatGroq(
-        model="llama-3.3-70b-versatile",   # Best current replacement
+        api_key=api_key,   # 🔥 THIS IS REQUIRED
+        model="llama-3.3-70b-versatile",
         temperature=0.3,
         max_tokens=1024,
     )
